@@ -650,10 +650,135 @@ Save this as:
 Bank-Management-App/README.md
 
 Then run:
+---
+
+## 🚀 DevOps & CI/CD
+
+The application has been containerized and integrated with an automated CI/CD workflow using Docker, GitHub Actions, and GitHub Container Registry.
+
+### DevOps Workflow
+
+```text
+Developer
+   |
+   | git push
+   v
+GitHub Repository
+   |
+   v
+GitHub Actions
+   |
+   +----------------------+
+   |                      |
+   v                      v
+Maven Build          Docker Build
+   |                      |
+   +----------+-----------+
+              |
+              v
+    GitHub Container Registry
+              |
+              v
+       Docker Image
+              |
+              v
+      Docker Compose
+        /         \
+       v           v
+ Spring Boot   PostgreSQL
+ Container      Container
+
 
 git add README.md
 git commit -m "Update project README"
 git push
+
+DevOps Technologies
+Technology	Purpose
+Git	Source code version control
+GitHub	Source code hosting
+Maven	Build automation
+Docker	Application containerization
+Docker Compose	Multi-container application deployment
+PostgreSQL	Database
+GitHub Actions	CI/CD automation
+GitHub Container Registry	Docker image storage and distribution
+CI Pipeline
+
+Every push to the main branch triggers the GitHub Actions workflow.
+
+The pipeline performs:
+
+Checkout source code
+Set up Java 25
+Build the Spring Boot application using Maven
+Authenticate with GitHub Container Registry
+Build the Docker image
+Push the Docker image to GHCR
+Containerized Deployment
+
+The application uses two Docker containers:
+
+bank-app — Spring Boot application
+bank-db — PostgreSQL database
+
+Docker Compose manages the application and database containers and provides networking between them.
+
+The application connects to PostgreSQL using environment-based configuration:
+
+DB_HOST
+DB_NAME
+DB_USERNAME
+DB_PASSWORD
+Docker Image
+
+The application image is published to GitHub Container Registry:
+
+ghcr.io/srujanbd/bank-management-app:latest
+
+The deployment environment pulls the published image instead of building the application locally.
+
+CI/CD Result
+Code Push
+   ↓
+Automated Maven Build
+   ↓
+Docker Image Build
+   ↓
+GHCR Image Push
+   ↓
+Docker Compose Deployment
+   ↓
+Spring Boot + PostgreSQL
+   ↓
+Running Application
+🐳 Running the Application with Docker
+Prerequisites
+Docker Desktop
+Git
+Start the application
+
+Clone the repository and navigate to the project:
+
+git clone https://github.com/Srujanbd/bank-management-system.git
+cd repository17/Bank-Management-App
+
+Start the services:
+
+docker compose pull
+docker compose up -d
+
+Check running containers:
+
+docker compose ps
+
+The application will be available at:
+
+http://localhost:8080
+Stop the application
+docker compose down
+
+The PostgreSQL data is stored in a Docker volume so that database data can persist when containers are recreated.
 
 If git push says the upstream is not set, use:
 

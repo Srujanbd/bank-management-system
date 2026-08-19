@@ -25,7 +25,8 @@ jobs:
           cache: maven
 
       - name: Build application
+        working-directory: Bank-Management-App
         run: ./mvnw clean package -DskipTests
 
       - name: Build Docker image
-        run: docker build -t bank-management-app .
+        run: docker build -t bank-management-app ./Bank-Management-App

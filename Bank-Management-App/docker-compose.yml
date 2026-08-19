@@ -1,5 +1,4 @@
 services:
-
   db:
     image: postgres:16
     container_name: bank-db
@@ -18,7 +17,7 @@ services:
       retries: 10
 
   app:
-    build: .
+    image: ghcr.io/srujanbd/bank-management-app:latest
     container_name: bank-app
     ports:
       - "8080:8080"
